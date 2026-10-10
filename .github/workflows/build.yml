@@ -18,7 +18,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: gradle
+          # Убрали cache: gradle на время, чтобы избежать ошибки поиска файлов
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v4
@@ -34,3 +34,4 @@ jobs:
         with:
           name: app-debug
           path: app/build/outputs/apk/debug/*.apk
+          
