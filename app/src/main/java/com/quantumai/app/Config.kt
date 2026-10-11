@@ -17,9 +17,9 @@ object Config {
     // Уровни: только значок по сумме пополнения, БЕЗ бонусов (pct = 0)
     val TIERS = listOf(
         Tier("Basic", 100, 15, "⚙️"),      // +15%
-Tier("Advanced", 300, 20, "🚀"),   // +20%
-Tier("Pro", 500, 40, "🖥️"),        // +40%
-Tier("Ultra", 1000, 40, "⚡")       // +40%
+        Tier("Advanced", 300, 20, "🚀"),   // +20%
+        Tier("Pro", 500, 40, "🖥️"),        // +40%
+        Tier("Ultra", 1000, 40, "⚡")       // +40%
 
     const val PAY_APPS = "Binance • OKX • Bybit • Trust Wallet • any wallet/exchange"
 
