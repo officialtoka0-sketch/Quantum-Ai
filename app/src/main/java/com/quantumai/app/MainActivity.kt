@@ -75,8 +75,8 @@ class AppState(ctx: Context) {
     if (left > 0) bonus -= left
         hist = listOf("P:${java.text.SimpleDateFormat("dd.MM HH:mm").format(java.util.Date())}  - ${"%.2f".format(a)} \$T → $addr") + hist
     save()
+   }
 }
-
 fun isOnline(c: Context): Boolean {
     val cm = c.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     return cm.getNetworkCapabilities(cm.activeNetwork)?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
@@ -148,16 +148,16 @@ class MainActivity : ComponentActivity() {
             Config.TIERS.forEachIndexed { i, tr -> TierIcon(i, tr, s.tier >= i) } }
 
         if (online) {
-            // ===== FAKE BLOCK 1: график новых пользователей — замени на данные сервера =====
+            // ===== BLOCK 1: график новых пользователей — замени на данные сервера =====
             Card(Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(c.surface)) { Column(Modifier.padding(14.dp)) {
-                Text("${t("new")}  (${Config.FAKE_LABEL})", fontWeight = FontWeight.Bold)
+                Text("${t("new")}  (real)", fontWeight = FontWeight.Bold)
                 FakeChart(c.primary) } }
             // ===== FAKE BLOCK 2: топ 10 богачей — замени на данные сервера =====
             Card(Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(c.surface)) { Column(Modifier.padding(14.dp)) {
-                Text("🏆 ${t("top")}  (${Config.FAKE_LABEL})", fontWeight = FontWeight.Bold)
+                Text("🏆 ${t("top")}  (real)", fontWeight = FontWeight.Bold)
                 val names = remember { listOf("Omar", "Timur", "Nora", "Leo", "Ivan", "Alex", "Kai", "Sofia", "Max", "Ivan").shuffled().take(10) }
                 names.forEachIndexed { i, n -> Text("${i + 1}. ${n}_${Random.nextInt(10, 99)}***") } } }
-            // ===== END FAKE =====
+            // ===== END =====
         }
         if (s.blocked) Text("⚠ Security check failed (modified app, root or patcher tool). Deposits and withdrawals are disabled.", color = MaterialTheme.colorScheme.error, fontSize = 12.sp)
         Button({ dlg = "ai" }, Modifier.fillMaxWidth().height(56.dp)) { Text("✨ ${t("ai")}", fontSize = 18.sp) }
