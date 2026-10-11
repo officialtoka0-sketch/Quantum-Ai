@@ -73,7 +73,7 @@ class AppState(ctx: Context) {
     real -= fromReal
     left -= fromReal
     if (left > 0) bonus -= left
-    hist = listOf("P:\( {java.text.SimpleDateFormat("dd.MM HH:mm").format(java.util.Date())}  - \){"%.2f".format(a)} \$T → $addr") + hist
+        hist = listOf("P:${java.text.SimpleDateFormat("dd.MM HH:mm").format(java.util.Date())}  - ${"%.2f".format(a)} \$T → $addr") + hist
     save()
 }
 
