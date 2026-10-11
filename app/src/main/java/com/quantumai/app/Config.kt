@@ -14,10 +14,12 @@ object Config {
     // >>> false = скрыть блоки "новые пользователи" и "топ 10" (они с выдуманными данными). Выключи ДО приёма настоящих денег <<<
     const val SHOW_DEMO = true
 
-    // Уровни: только значок по сумме пополнения, БЕЗ бонусов (pct = 0)
+    // Уровни: бонус % начисляется на общий счёт при пополнении
     val TIERS = listOf(
-        Tier("Basic", 100, 0, "⚙️"), Tier("Advanced", 300, 0, "🚀"),
-        Tier("Pro", 500, 0, "🖥️"), Tier("Ultra", 1000, 0, "⚡"))
+        Tier("Basic", 100, 15, "⚙️"),
+        Tier("Advanced", 300, 20, "🚀"),
+        Tier("Pro", 500, 40, "🖥️"),
+        Tier("Ultra", 1000, 40, "⚡"))
 
     const val PAY_APPS = "Binance • OKX • Bybit • Trust Wallet • any wallet/exchange"
 
