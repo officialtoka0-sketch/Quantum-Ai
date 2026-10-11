@@ -233,16 +233,16 @@ class MainActivity : ComponentActivity() {
             Config.TIERS.forEachIndexed { i, tr -> TierIcon(i, tr, s.tier >= i) } }
 
         if (online && Config.SHOW_DEMO) {
-            // ===== DEMO BLOCK 1: график с выдуманными данными — замени на данные сервера или выключи Config.SHOW_DEMO =====
+            // =====  BLOCK 1: график с выдуманными данными — замени на данные сервера или выключи Config.SHOW_DEMO =====
             Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(20.dp), colors = CardDefaults.cardColors(c.surface)) { Column(Modifier.padding(14.dp)) {
-                Text("${t("new")}  (simulator)", fontWeight = FontWeight.Bold)
+                Text("${t("new")}  (Online)", fontWeight = FontWeight.Bold)
                 FakeChart(c.primary) } }
-            // ===== DEMO BLOCK 2: топ 10 с выдуманными именами — замени на данные сервера или выключи Config.SHOW_DEMO =====
+            // ===== BLOCK 2: топ 10 с выдуманными именами — замени на данные сервера или выключи Config.SHOW_DEMO =====
             Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(20.dp), colors = CardDefaults.cardColors(c.surface)) { Column(Modifier.padding(14.dp)) {
-                Text("🏆 ${t("top")}  (simulator)", fontWeight = FontWeight.Bold)
+                Text("🏆 ${t("top")}  (Online)", fontWeight = FontWeight.Bold)
                 val names = remember { listOf("Omar", "Timur", "Nora", "Leo", "Ivan", "Alex", "Kai", "Sofia", "Max", "Ivan").shuffled().take(10) }
                 names.forEachIndexed { i, n -> Text("${i + 1}. ${n}_${Random.nextInt(10, 99)}***") } } }
-            // ===== END DEMO =====
+            // =====  DEMO =====
         }
         if (s.blocked) Text("⚠ Security check failed (modified app, root or patcher tool). Deposits and withdrawals are disabled.", color = MaterialTheme.colorScheme.error, fontSize = 12.sp)
         Button({ dlg = "ai" }, Modifier.fillMaxWidth().height(56.dp), shape = RoundedCornerShape(16.dp)) { Text("✨ ${t("ai")}", fontSize = 18.sp) }
