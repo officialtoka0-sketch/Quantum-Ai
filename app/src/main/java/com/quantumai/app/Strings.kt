@@ -2,13 +2,86 @@ package com.quantumai.app
 
 object L {
     val names = mapOf("ru" to "Русский", "en" to "English", "tk" to "Türkmen", "pt" to "Português (BR)", "de" to "Deutsch", "ur" to "اردو")
-    private val raw = mapOf(
-        "en" to "dep=Deposit;wd=Withdraw;set=Settings;theme=Theme;lang=Language;pin=PIN code;ref=Referrals;ai=AI;new=new users today;top=Top 10 richest;wait=Withdrawal available in;pend=Pending;done=Completed;nick=Nickname;save=Save",
-        "ru" to "dep=Ввести средства;wd=Вывести средства;set=Настройки;theme=Тема;lang=Язык;pin=Пин-код;ref=Рефералы;ai=ИИ;new=новых пользователей сегодня;top=Топ 10 богачей;wait=Вывод будет доступен через;pend=В обработке;done=Выполненные;nick=Ник;save=Сохранить",
-        "tk" to "dep=Serişde goş;wd=Serişde çykar;set=Sazlamalar;theme=Tema;lang=Dil;pin=PIN kod;ref=Referallar;ai=AI;new=şu gün täze ulanyjylar;top=Iň baý 10;wait=Çykarmak elýeterli bolar;pend=Garaşylýar;done=Tamamlanan;nick=Lakam;save=Ýatda sakla",
-        "pt" to "dep=Depositar;wd=Sacar;set=Configurações;theme=Tema;lang=Idioma;pin=Código PIN;ref=Indicações;ai=IA;new=novos usuários hoje;top=Top 10 mais ricos;wait=Saque disponível em;pend=Pendentes;done=Concluídos;nick=Apelido;save=Salvar",
-        "de" to "dep=Einzahlen;wd=Auszahlen;set=Einstellungen;theme=Design;lang=Sprache;pin=PIN-Code;ref=Empfehlungen;ai=KI;new=neue Nutzer heute;top=Top 10 Reichste;wait=Auszahlung möglich in;pend=Ausstehend;done=Abgeschlossen;nick=Nickname;save=Speichern",
-        "ur" to "dep=رقم جمع کریں;wd=رقم نکالیں;set=ترتیبات;theme=تھیم;lang=زبان;pin=پن کوڈ;ref=ریفرلز;ai=اے آئی;new=آج نئے صارفین;top=10 امیر ترین;wait=نکالنا دستیاب ہوگا;pend=زیر التواء;done=مکمل;nick=نک نیم;save=محفوظ کریں")
-    private val m = raw.mapValues { e -> e.value.split(";").associate { it.substringBefore("=") to it.substringAfter("=") } }
+
+    private val m: Map<String, Map<String, String>> = mapOf(
+        "en" to mapOf(
+            "dep" to "Deposit", "wd" to "Withdraw", "set" to "Settings", "theme" to "Theme", "lang" to "Language",
+            "pin" to "PIN code", "ref" to "Referrals", "ai" to "AI", "new" to "new users today", "top" to "Top 10 richest",
+            "wait" to "Withdrawal available in", "pend" to "Pending", "done" to "Completed", "nick" to "Nickname", "save" to "Save",
+            "copy" to "Copy address", "copied" to "Address copied ✓",
+            "warn" to "Send only %s assets to this address. Other assets will be lost.",
+            "how" to "How it works",
+            "s1" to "Choose a network and copy the address or scan the QR code.",
+            "s2" to "Send ONLY on the selected network. Wrong network = lost funds.",
+            "s3" to "Copy the TX hash of your transfer from your wallet or exchange.",
+            "s4" to "Paste it below and tap “Verify & credit”. Usually takes 1–10 minutes.",
+            "verify" to "Verify & credit", "empty" to "Nothing here yet",
+            "rules" to "Quantum AI sells AI-service credits (\$T). 1 USDT = 1 \$T. No bonuses and no profit are promised. Unused balance is refundable on request (manual review). Deposit: 30–50,000 USD."),
+        "ru" to mapOf(
+            "dep" to "Ввести средства", "wd" to "Вывести средства", "set" to "Настройки", "theme" to "Тема", "lang" to "Язык",
+            "pin" to "Пин-код", "ref" to "Рефералы", "ai" to "ИИ", "new" to "новых пользователей сегодня", "top" to "Топ 10 богачей",
+            "wait" to "Вывод будет доступен через", "pend" to "В обработке", "done" to "Выполненные", "nick" to "Ник", "save" to "Сохранить",
+            "copy" to "Копировать адрес", "copied" to "Адрес скопирован ✓",
+            "warn" to "Отправляйте на этот адрес только активы сети %s. Другие активы будут безвозвратно утеряны.",
+            "how" to "Как это работает",
+            "s1" to "Выберите сеть и скопируйте адрес или отсканируйте QR-код.",
+            "s2" to "Отправляйте ТОЛЬКО в выбранной сети. Другая сеть = потеря средств.",
+            "s3" to "Скопируйте TX hash перевода из вашего кошелька или биржи.",
+            "s4" to "Вставьте его ниже и нажмите «Проверить и зачислить». Обычно 1–10 минут.",
+            "verify" to "Проверить и зачислить", "empty" to "Пока пусто",
+            "rules" to "Quantum AI продаёт кредиты для ИИ-сервисов (\$T). 1 USDT = 1 \$T. Бонусы и доход не обещаются. Неиспользованный остаток возвращается по запросу (ручная проверка). Пополнение: 30–50 000 USD."),
+        "tk" to mapOf(
+            "dep" to "Serişde goş", "wd" to "Serişde çykar", "set" to "Sazlamalar", "theme" to "Tema", "lang" to "Dil",
+            "pin" to "PIN kod", "ref" to "Referallar", "ai" to "AI", "new" to "şu gün täze ulanyjylar", "top" to "Iň baý 10",
+            "wait" to "Çykarmak elýeterli bolar", "pend" to "Garaşylýar", "done" to "Tamamlanan", "nick" to "Lakam", "save" to "Ýatda sakla",
+            "copy" to "Salgyny göçür", "copied" to "Salgy göçürildi ✓",
+            "warn" to "Bu salga diňe %s toruň aktiwlerini iberiň. Beýleki aktiwler ýitirler.",
+            "how" to "Bu nähili işleýär",
+            "s1" to "Tory saýlaň we salgyny göçüriň ýa-da QR kody skanirläň.",
+            "s2" to "DIŇE saýlanan tor arkaly iberiň. Ýalňyş tor = serişdeler ýitýär.",
+            "s3" to "Gapjygyňyzdan ýa-da biržadan geçirimiň TX hash-ini göçüriň.",
+            "s4" to "Ony aşakda goýuň we “Barla we hasaba goş” düwmesine basyň. Adatça 1–10 minut.",
+            "verify" to "Barla we hasaba goş", "empty" to "Entek hiç zat ýok",
+            "rules" to "Quantum AI AI hyzmatlarynyň kreditlerini (\$T) satýar. 1 USDT = 1 \$T. Bonus we girdeji wada berilmeýär. Ulanylmadyk galyndy haýyş boýunça yzyna gaýtarylýar (el bilen seredilýär). Goýum: 30–50 000 USD."),
+        "pt" to mapOf(
+            "dep" to "Depositar", "wd" to "Sacar", "set" to "Configurações", "theme" to "Tema", "lang" to "Idioma",
+            "pin" to "Código PIN", "ref" to "Indicações", "ai" to "IA", "new" to "novos usuários hoje", "top" to "Top 10 mais ricos",
+            "wait" to "Saque disponível em", "pend" to "Pendentes", "done" to "Concluídos", "nick" to "Apelido", "save" to "Salvar",
+            "copy" to "Copiar endereço", "copied" to "Endereço copiado ✓",
+            "warn" to "Envie para este endereço apenas ativos da rede %s. Outros ativos serão perdidos.",
+            "how" to "Como funciona",
+            "s1" to "Escolha a rede e copie o endereço ou escaneie o QR code.",
+            "s2" to "Envie SOMENTE na rede selecionada. Rede errada = fundos perdidos.",
+            "s3" to "Copie o hash da transação (TX hash) na sua carteira ou corretora.",
+            "s4" to "Cole abaixo e toque em “Verificar e creditar”. Normalmente leva de 1 a 10 minutos.",
+            "verify" to "Verificar e creditar", "empty" to "Nada aqui ainda",
+            "rules" to "A Quantum AI vende créditos de serviços de IA (\$T). 1 USDT = 1 \$T. Não prometemos bônus nem lucro. O saldo não utilizado pode ser reembolsado mediante solicitação (análise manual). Depósito: 30–50.000 USD."),
+        "de" to mapOf(
+            "dep" to "Einzahlen", "wd" to "Auszahlen", "set" to "Einstellungen", "theme" to "Design", "lang" to "Sprache",
+            "pin" to "PIN-Code", "ref" to "Empfehlungen", "ai" to "KI", "new" to "neue Nutzer heute", "top" to "Top 10 Reichste",
+            "wait" to "Auszahlung möglich in", "pend" to "Ausstehend", "done" to "Abgeschlossen", "nick" to "Nickname", "save" to "Speichern",
+            "copy" to "Adresse kopieren", "copied" to "Adresse kopiert ✓",
+            "warn" to "Senden Sie an diese Adresse nur Assets des Netzwerks %s. Andere Assets gehen verloren.",
+            "how" to "So funktioniert's",
+            "s1" to "Netzwerk wählen und Adresse kopieren oder den QR-Code scannen.",
+            "s2" to "NUR im gewählten Netzwerk senden. Falsches Netzwerk = Geld verloren.",
+            "s3" to "TX-Hash der Überweisung aus Wallet oder Börse kopieren.",
+            "s4" to "Unten einfügen und „Prüfen und gutschreiben“ tippen. Dauert meist 1–10 Minuten.",
+            "verify" to "Prüfen und gutschreiben", "empty" to "Noch nichts vorhanden",
+            "rules" to "Quantum AI verkauft Guthaben für KI-Dienste (\$T). 1 USDT = 1 \$T. Es werden weder Boni noch Gewinne versprochen. Nicht genutztes Guthaben wird auf Anfrage erstattet (manuelle Prüfung). Einzahlung: 30–50.000 USD."),
+        "ur" to mapOf(
+            "dep" to "رقم جمع کریں", "wd" to "رقم نکالیں", "set" to "ترتیبات", "theme" to "تھیم", "lang" to "زبان",
+            "pin" to "پن کوڈ", "ref" to "ریفرلز", "ai" to "اے آئی", "new" to "آج نئے صارفین", "top" to "10 امیر ترین",
+            "wait" to "نکالنا دستیاب ہوگا", "pend" to "زیر التواء", "done" to "مکمل", "nick" to "نک نیم", "save" to "محفوظ کریں",
+            "copy" to "ایڈریس کاپی کریں", "copied" to "ایڈریس کاپی ہو گیا ✓",
+            "warn" to "اس ایڈریس پر صرف %s نیٹ ورک کے اثاثے بھیجیں۔ دوسرے اثاثے ضائع ہو جائیں گے۔",
+            "how" to "یہ کیسے کام کرتا ہے",
+            "s1" to "نیٹ ورک منتخب کریں اور ایڈریس کاپی کریں یا QR کوڈ اسکین کریں۔",
+            "s2" to "صرف منتخب نیٹ ورک میں بھیجیں۔ غلط نیٹ ورک = رقم ضائع۔",
+            "s3" to "اپنے والٹ یا ایکسچینج سے ٹرانسفر کا TX hash کاپی کریں۔",
+            "s4" to "اسے نیچے پیسٹ کریں اور «جانچیں اور جمع کریں» دبائیں۔ عموماً 1 سے 10 منٹ لگتے ہیں۔",
+            "verify" to "جانچیں اور جمع کریں", "empty" to "ابھی کچھ نہیں",
+            "rules" to "کوانٹم اے آئی، اے آئی سروسز کے کریڈٹس (\$T) فروخت کرتا ہے۔ 1 USDT = 1 \$T۔ کسی بونس یا منافع کا وعدہ نہیں۔ غیر استعمال شدہ بیلنس درخواست پر واپس کیا جا سکتا ہے (دستی جائزہ)۔ ڈپازٹ: 30–50,000 USD۔"))
+
     fun t(l: String, k: String) = m[l]?.get(k) ?: m["en"]!![k] ?: k
 }

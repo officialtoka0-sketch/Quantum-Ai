@@ -13,6 +13,8 @@ object ChainVerifier {
     // >>> Эндпоинты и подтверждения — здесь. Для надёжности поставь свои ключи Alchemy/Infura/Helius. <<<
     private const val ETH_RPC = "https://ethereum-rpc.publicnode.com"
     private const val BSC_RPC = "https://bsc-rpc.publicnode.com"
+    private const val ARB_RPC = "https://arbitrum-one-rpc.publicnode.com"
+    private const val ARB_USDT = "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9"   // 6 decimals
     private const val SOL_RPC = "https://api.mainnet-beta.solana.com"
     private const val ETH_USDT = "0xdAC17F958D2ee523a2206206994597C13D831ec7"   // 6 decimals
     private const val BSC_USDT = "0x55d398326f99059fF775485246999027B3197955"   // 18 decimals
@@ -36,6 +38,7 @@ object ChainVerifier {
     fun verify(net: Net, hash: String): VerifyResult = try {
         when (net.kind) {
             "ETH" -> evm(ETH_RPC, ETH_USDT, 6, "ethereum", 12, net.address, hash)
+            "ARB" -> evm(ARB_RPC, ARB_USDT, 6, "ethereum", 20, net.address, hash)
             "BEP20" -> evm(BSC_RPC, BSC_USDT, 18, null, 15, net.address, hash)
             "BTC" -> btc(net.address, hash)
             "SOL" -> sol(net.address, hash)
